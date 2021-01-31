@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>edit policy</title>
+</head>
+<body>
+
+<p th:text="'Policy #' + ${policy.getId()}">VALUE</p>
+<p th:text="'Client: ' + ${policy.getClient().getName() + ' ' + policy.getClient().getSurname() + ', passport ID ' + policy.getClient().getPassportId()}">VALUE</p>
+
+<form th:method="PATCH" th:action="@{/policies/{id}(id=${policy.getId()})}" th:object="${policy}">
+
+    <label for="property">Enter property: </label>
+    <input type="text" th:field="*{property}" id="property"/>
+    <div style="color:red" th:if="${#fields.hasErrors('property')}" th:errors="*{property}">property Error</div>
+
+    <br/>
+    <label for="coverage">Enter coverage: </label>
+    <input type="text" th:field="*{coverage}" id="coverage"/>
+    <div style="color:red" th:if="${#fields.hasErrors('coverage')}" th:errors="*{coverage}">coverage Error</div>
+    <br/>
+    <label for="price">Enter price: </label>
+    <input type="text" th:field="*{price}" id="price"/>
+    <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">price Error</div>
+    <br/>
+
+    <input type="submit" value="Update policy!"/>
+</form>
+</body>
+</html>

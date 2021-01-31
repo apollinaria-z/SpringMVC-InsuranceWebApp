@@ -1,0 +1,7 @@
+by/zolotaya/app/DbConnection.class
+by/zolotaya/app/config/MySpringMVCDispatcherServletInitializer.class
+by/zolotaya/app/dao/ClientDAO.class
+by/zolotaya/app/dao/ClientDAO$SQLClient.class
+by/zolotaya/app/models/Client.class
+by/zolotaya/app/config/SpringConfig.class
+by/zolotaya/app/controllers/ClientController.class

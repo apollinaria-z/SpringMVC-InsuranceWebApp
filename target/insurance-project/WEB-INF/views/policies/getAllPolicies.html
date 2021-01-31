@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>all policies</title>
+</head>
+<body>
+
+<h3>List of personal policies</h3>
+<div th:each="policy : ${policies}">
+    <a th:href="@{/policies/{id}(id=${policy.getId()})}"
+       th:text="'policy #' + ${policy.getId()}">policy</a>
+
+</div>
+
+
+</body>
+</html>

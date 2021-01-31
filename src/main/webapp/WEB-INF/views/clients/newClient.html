@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>new client</title>
+</head>
+<body>
+    <form th:method="POST" th:action="@{/clients}" th:object="${client}">
+        <label for="name">Enter name: </label>
+        <input type="text" th:field="*{name}" id="name"/>
+        <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+        <br/>
+        <label for="surname">Enter surname: </label>
+        <input type="text" th:field="*{surname}" id="surname"/>
+        <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">surname Error</div>
+        <br/>
+        <label for="passportId">Enter passportId: </label>
+        <input type="text" th:field="*{passportId}" id="passportId"/>
+        <div style="color:red" th:if="${#fields.hasErrors('passportId')}" th:errors="*{passportId}">passportId Error</div>
+        <br/>
+
+        <input type="submit" value="Create!"/>
+    </form>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>new policy</title>
+</head>
+<body>
+    <form th:method="POST" th:action="@{/policies}" th:object="${policy}">
+        <label for="clientid">Enter clientid: </label>
+        <input type="text" th:field="*{policy.client.id}" id="clientid"/>
+        <div style="color:red" th:if="${#fields.hasErrors('clientid')}" th:errors="*{clientid}">ClientId Error</div>
+        <br/>
+        <label for="property">Enter property: </label>
+        <input type="text" th:field="*{property}" id="property"/>
+        <div style="color:red" th:if="${#fields.hasErrors('property')}" th:errors="*{property}">property Error</div>
+        <br/>
+        <label for="coverage">Enter coverage: </label>
+        <input type="text" th:field="*{coverage}" id="coverage"/>
+        <div style="color:red" th:if="${#fields.hasErrors('coverage')}" th:errors="*{coverage}">coverage Error</div>
+        <br/>
+        <label for="price">Enter price: </label>
+        <input type="text" th:field="*{price}" id="price"/>
+        <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">price Error</div>
+        <br/>
+
+        <input type="submit" value="Create!"/>
+    </form>
+</body>
+</html>
