@@ -1,8 +1,11 @@
 package by.zolotaya.app.controllers;
 
+import by.zolotaya.app.dao.impl.ClientDAO;
 import by.zolotaya.app.dao.impl.PolicyDAO;
 import by.zolotaya.app.models.Client;
+import by.zolotaya.app.models.Coverage;
 import by.zolotaya.app.models.Policy;
+import by.zolotaya.app.models.PolicyRequestModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,7 @@ import javax.validation.Valid;
 public class PolicyController {
 
     private PolicyDAO policyDAO;
+    private ClientDAO clientDAO;
 
     @Autowired
     public PolicyController(PolicyDAO policyDAO){
@@ -40,11 +44,17 @@ public class PolicyController {
     }
 
     @PostMapping()
-    public String addPolicy(@ModelAttribute("policy") @Valid Policy policy,
+    public String addPolicy(@ModelAttribute("policyreq") @Valid PolicyRequestModel policyreq,
                             BindingResult bindingResult){
         if (bindingResult.hasErrors())
             return "policies/newPolicy";
 
+        Policy policy = new Policy();
+        Client client = clientDAO.getClientById(policyreq.getClientid());
+        policy.setClient(client);
+        policy.setCoverage(Coverage.valueOf(policyreq.getCoverage()));
+        policy.setPrice(policyreq.getPrice());
+        policy.setProperty(policyreq.getProperty());
         policyDAO.createPolicy(policy);
         return "redirect:/policies";
     }

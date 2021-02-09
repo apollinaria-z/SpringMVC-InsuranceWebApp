@@ -10,9 +10,10 @@
 <div th:each="policy : ${policies}">
     <a th:href="@{/policies/{id}(id=${policy.getId()})}"
        th:text="'policy #' + ${policy.getId()}">policy</a>
-
 </div>
-
+<br/>
+<hr/>
+<a href="/policies/new">Create new policy</a>
 
 </body>
 </html>

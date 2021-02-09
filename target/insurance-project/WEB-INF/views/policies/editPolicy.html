@@ -16,7 +16,7 @@
     <div style="color:red" th:if="${#fields.hasErrors('property')}" th:errors="*{property}">property Error</div>
 
     <br/>
-    <label for="coverage">Enter coverage: </label>
+    <label for="coverage">Enter coverage COLLISION or COMPREHENSIVE: </label>
     <input type="text" th:field="*{coverage}" id="coverage"/>
     <div style="color:red" th:if="${#fields.hasErrors('coverage')}" th:errors="*{coverage}">coverage Error</div>
     <br/>

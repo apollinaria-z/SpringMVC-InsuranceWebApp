@@ -13,7 +13,6 @@ public class Policy {
 
     private Coverage coverage;
 
-    @NotEmpty(message = "Price should not be empty")
     @Min(value = 0, message = "Prise should be greater than 0")
     private int price;
 
