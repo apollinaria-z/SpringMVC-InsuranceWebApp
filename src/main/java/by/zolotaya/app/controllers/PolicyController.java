@@ -22,60 +22,64 @@ public class PolicyController {
     private ClientDAO clientDAO;
 
     @Autowired
-    public PolicyController(PolicyDAO policyDAO){
+    public PolicyController(PolicyDAO policyDAO, ClientDAO clientDAO) {
         this.policyDAO = policyDAO;
+        this.clientDAO = clientDAO;
     }
 
     @GetMapping()
-    public String getAllPolicies(Model model){
+    public String getAllPolicies(Model model) {
         model.addAttribute("policies", policyDAO.getAllPolicies());
         return "policies/getAllPolicies";
     }
 
     @GetMapping("/{id}")
-    public String getPolicyById(@PathVariable("id") int id, Model model){
+    public String getPolicyById(@PathVariable("id") int id, Model model) {
         model.addAttribute("policy", policyDAO.getPolicyById(id));
         return "policies/getPolicyById";
     }
 
     @GetMapping("/new")
-    public String newPolicy(@ModelAttribute("policy") Policy policy){
+    public String newPolicy(@ModelAttribute("policyreq") PolicyRequestModel policyreq) {
         return "policies/newPolicy";
     }
 
-    @PostMapping()
+    @PostMapping("/save")
     public String addPolicy(@ModelAttribute("policyreq") @Valid PolicyRequestModel policyreq,
-                            BindingResult bindingResult){
+                            BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "policies/newPolicy";
 
         Policy policy = new Policy();
-        Client client = clientDAO.getClientById(policyreq.getClientid());
-        policy.setClient(client);
-        policy.setCoverage(Coverage.valueOf(policyreq.getCoverage()));
-        policy.setPrice(policyreq.getPrice());
-        policy.setProperty(policyreq.getProperty());
-        policyDAO.createPolicy(policy);
-        return "redirect:/policies";
+        Client client = new Client();
+        if(clientDAO.getClientById(policyreq.getClientid()).getSurname() != null) {
+            client = clientDAO.getClientById(policyreq.getClientid());
+            policy.setClient(client);
+            policy.setCoverage(Coverage.valueOf(policyreq.getCoverage()));
+            policy.setPrice(policyreq.getPrice());
+            policy.setProperty(policyreq.getProperty());
+            policyDAO.createPolicy(policy);
+            return "redirect:/policies";
+        } else return "redirect:/clients";
     }
 
     @GetMapping("/{id}/edit")
-    public String editPolicy(Model model, @PathVariable("id") int id){
+    public String editPolicy(Model model, @PathVariable("id") int id) {
         model.addAttribute("policy", policyDAO.getPolicyById(id));
         return "policies/editPolicy";
     }
 
     @PatchMapping("/{id}")
     public String updatePolicy(@ModelAttribute("policy") @Valid Policy policy,
-                               BindingResult bindingResult, @PathVariable("id") int id){
+                               BindingResult bindingResult, @PathVariable("id") int id) {
         if (bindingResult.hasErrors())
             return "policies/editPolicy";
         policyDAO.updatePolicy(id, policy);
-        return"redirect:/policies";
+        return "redirect:/policies";
     }
 
     @DeleteMapping("/{id}")
-    public String deletePolicy(@PathVariable("id") int id){
+    public String deletePolicy(@PathVariable("id") int id) {
         policyDAO.deletePolicy(id);
         return "redirect:/policies";
     }

@@ -2,21 +2,33 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>new policy</title>
+    <title>new client</title>
 </head>
 <body>
-    <form th:method="POST" th:action="@{/policies}" th:object="${policyreq}">
-        <label for="clientid">Enter clientId: </label>
-        <input type="text" th:field="*{clienid}" id="clientid"/>
+    <form th:method="POST" th:action="@{/policies/save}" th:object="${policyreq}">
+        <label for="clientid">Enter clientid: </label>
+        <input type="text" th:field="*{clientid}" id="clientid"/>
+        <div style="color:red" th:if="${#fields.hasErrors('clientid')}" th:errors="*{clientid}">clientid Error</div>
         <br/>
+
         <label for="property">Enter property: </label>
         <input type="text" th:field="*{property}" id="property"/>
+        <div style="color:red" th:if="${#fields.hasErrors('property')}" th:errors="*{property}">property Error</div>
         <br/>
-        <label for="coverage">Enter coverage COLLISION or COMPREHENSIVE: </label>
-        <input type="text" th:field="*{coverage}" id="coverage"/>
+
+     <!--   <label for="coverage">Enter coverage COLLISION or COMPREHENSIVE: </label>
+        <input type="text" th:field="${policyreq.coverage}" id="coverage"/>
          <br/>
+         -->
+
+        <select th:field="*{coverage}">
+            <option th:value="COLLISION"> COLLISION</option>
+            <option th:value="COMPREHENSIVE"> COMPREHENSIVE</option>
+        </select>
+
         <label for="price">Enter price: </label>
         <input type="text" th:field="*{price}" id="price"/>
+        <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">price Error</div>
         <br/>
 
         <input type="submit" value="Create!"/>

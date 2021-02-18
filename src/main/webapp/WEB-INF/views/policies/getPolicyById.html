@@ -7,7 +7,8 @@
 <body>
 
 <p th:text="'Policy #' + ${policy.getId()}">VALUE</p>
-<p th:text="'Client: ' + ${policy.getClient().getName() + ' ' + policy.getClient().getSurname() + ', passport ID ' + policy.getClient().getPassportId()}">VALUE</p>
+<p th:text="'Client: id#' + ${policy.getClient().getId() + ' ' + policy.getClient().getName() + ' ' + policy.getClient().getSurname()}">VALUE</p>
+<p th:text=" 'passport ID ' + ${policy.getClient().getPassportId()}">VALUE</p>
 <p th:text="'insures ' + ${policy.getProperty() + ' with coverage ' + policy.getCoverage().toString()}">VALUE</p>
 <p th:text="'Price: ' + ${policy.getPrice()}">VALUE</p>
 <a th:href="@{/policies/{id}/edit(id=${policy.getId()})}">Edit</a>
